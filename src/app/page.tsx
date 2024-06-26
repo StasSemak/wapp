@@ -1,37 +1,36 @@
-import Link from "next/link";
+import { MapPinIcon } from "lucide-react";
+import { headers } from "next/headers";
+import { getLocationData } from "~/server/data";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
-        </div>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[#030835] px-8">
+      <div className="h-[420px] w-full max-w-[600px] rounded-3xl bg-[#083080]/50 p-6 text-zinc-100">
+        <Widget />
       </div>
     </main>
+  );
+}
+
+async function Widget() {
+  const ip = headers().get("x-real-ip");
+  const locationData = await getLocationData(ip);
+  const date = new Date().toLocaleDateString("en-US", { 
+    timeZone: locationData.geoplugin_timezone,
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
+
+  return (
+    <div className="flex w-full flex-col gap-4">
+      <div className="flex justify-between items-center">
+        <div className="flex gap-1 items-center">
+          <MapPinIcon className="stroke-zinc-100 size-4"/>
+          <p className="text-lg">{locationData.geoplugin_city + ", " + locationData.geoplugin_countryName}</p>
+        </div>
+        <p className="text-lg">{date}</p>
+      </div>
+    </div>
   );
 }
