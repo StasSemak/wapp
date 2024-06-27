@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import { WeatherDataItem } from "~/lib/types";
 import { todayWeatherFromTime } from "~/lib/weather-utils";
-import { getCurrentWeather, getLocationData, getWeatherData } from "~/server/data";
+import { getLocationData, getWeatherData } from "~/server/data";
 
 export default function HomePage() {
   return (
@@ -49,25 +49,25 @@ async function Widget() {
 
 async function WeatherSection(props: {latidute: string, longitude: string, timezone: string, time: string}) {
   const {latidute, longitude, timezone, time} = props;
-  const weatherData = await getWeatherData(latidute, longitude, timezone);
-  const todayWeather = todayWeatherFromTime(weatherData[0] ?? [], weatherData[1] ?? [], time);
+  const {currentData, dailyData} = await getWeatherData(latidute, longitude, timezone);
+  const todayWeather = todayWeatherFromTime(dailyData[0] ?? [], dailyData[1] ?? [], time);
 
   return(
     <div className="flex flex-col gap-6 w-full items-center">
-      <CurrentWeather {...props}/>
+      <CurrentWeather currentData={currentData}/>
       <TodayWeather data={todayWeather}/>
     </div>
   )
 }
 
-async function CurrentWeather({latidute, longitude, timezone}: {latidute: string, longitude: string, timezone: string, time: string}) {
-  const { temperature, status, image } = await getCurrentWeather(latidute, longitude, timezone);
+async function CurrentWeather({currentData}: {currentData: WeatherDataItem}) {
+  const { temperature, status, image } = currentData;
 
   return(
     <div className="flex flex-col gap-3 items-center">
       {image ? 
         <Image src={image} alt={status} className="size-36 select-none mb-1" loading="eager"/> :
-        <div className="size-36 rounded-lg bg-zinc-400"/>
+        <div className="size-36 rounded-lg bg-blue-300/50"/>
       }
       <p className="text-4xl font-semibold leading-9">{`${temperature}°C`}</p>
       <p className="text-xl leading-5">{status}</p>

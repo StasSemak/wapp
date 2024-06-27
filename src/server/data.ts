@@ -16,8 +16,15 @@ export async function getLocationData(ip: string | null) {
 }
 
 export async function getWeatherData(latitude: string, longitude: string, timezone: string) {
-  const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weathercode&timezone=${timezone}&start=now&end=now+7d`);
+  const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weathercode&current_weather=true&timezone=${timezone}&forecast_days=7`);
   const data = await res.json();
+
+  const currentData = {
+    time: data.current_weather.time,
+    temperature: data.current_weather.temperature,
+    status: weatherCodeToStatus(data.current_weather.weathercode),
+    image: weatherCodeToImage(data.current_weather.weathercode, false),
+  } as WeatherDataItem;
 
   const weatherData = data.hourly;
   const hourlyData = weatherData.temperature_2m.map((t: any, idx: any) => ({
@@ -27,21 +34,10 @@ export async function getWeatherData(latitude: string, longitude: string, timezo
     image: weatherCodeToImage(weatherData.weathercode[idx], false),
   })) as WeatherDataItem[];
 
-  const resData: { [key in number]: WeatherDataItem[] } = {};
+  const dailyData: { [key in number]: WeatherDataItem[] } = {};
   for(let i = 0; i < 7; i++) {
-    resData[i] = hourlyData.slice(0 + 24 * i, 24 + 24 * i);
+    dailyData[i] = hourlyData.slice(0 + 24 * i, 24 + 24 * i);
   }
 
-  return resData;
-}
-export async function getCurrentWeather(latidute: string, longitude: string, timezone: string) {
-  const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latidute}&longitude=${longitude}&current_weather=true&timezone=${timezone}`);
-  const data = await res.json();
-
-  return {
-    time: data.current_weather.time,
-    temperature: data.current_weather.temperature,
-    status: weatherCodeToStatus(data.current_weather.weathercode),
-    image: weatherCodeToImage(data.current_weather.weathercode, false),
-  } as WeatherDataItem;
+  return { currentData, dailyData };
 }
