@@ -23,7 +23,7 @@ export async function getWeatherData(latitude: string, longitude: string, timezo
     time: data.current_weather.time,
     temperature: data.current_weather.temperature,
     status: weatherCodeToStatus(data.current_weather.weathercode),
-    image: weatherCodeToImage(data.current_weather.weathercode, false),
+    image: weatherCodeToImage(data.current_weather.weathercode, false, "large"),
   } as WeatherDataItem;
 
   const weatherData = data.hourly;
@@ -31,7 +31,7 @@ export async function getWeatherData(latitude: string, longitude: string, timezo
     time: weatherData.time[idx],
     temperature: t,
     status: weatherCodeToStatus(weatherData.weathercode[idx]),
-    image: weatherCodeToImage(weatherData.weathercode[idx], false),
+    image: weatherCodeToImage(weatherData.weathercode[idx], false, "small"),
   })) as WeatherDataItem[];
 
   const dailyData: { [key in number]: WeatherDataItem[] } = {};

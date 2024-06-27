@@ -86,11 +86,14 @@ function TodayWeather({data}: {data: WeatherDataItem[] | undefined}) {
     </div>
   )
 }
-function TodayWeatherItem({status, temperature, time}: WeatherDataItem) {
+function TodayWeatherItem({image, status, temperature, time}: WeatherDataItem) {
   return(
     <div className="flex flex-col gap-1 rounded-md bg-blue-300/50 items-center min-w-16 py-1">
       <span>{time.split("T")[1]}</span>
-      <span className="size-8 rounded-sm bg-zinc-400"/>
+      {image ? 
+        <Image src={image} alt={status} className="size-8 select-none"/> :
+        <span className="size-8 rounded-sm bg-zinc-400"/>
+      }
       <span>{`${temperature}°`}</span>
     </div>
   )

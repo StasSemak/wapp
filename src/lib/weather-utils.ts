@@ -1,5 +1,5 @@
 import { WeatherDataItem } from "~/lib/types";
-import { weatherLargeImages } from "./images";
+import { weatherLargeImages, weatherSmallImages } from "./images";
 
 export function weatherCodeToStatus(code: number) {
   if (code === 0) return "Sunny";
@@ -21,32 +21,34 @@ export function weatherCodeToStatus(code: number) {
   if (code === 96 || code === 99) return "Thunderstorm with hail";
   return "Unknown";
 }
-export function weatherCodeToImage(code: number, isNight: boolean) {
+export function weatherCodeToImage(code: number, isNight: boolean, size: "small" | "large") {
+  const imagesSet = size === "small" ? weatherSmallImages : weatherLargeImages;
   if (code === 0 || code === 1) {
-    if(isNight) return weatherLargeImages.night.clear;
-    return weatherLargeImages.default.clear; 
+    if(isNight) return imagesSet.night.clear;
+    return imagesSet.default.clear; 
   }
   if (code === 2) {
-    if(isNight) return weatherLargeImages.night.cloudy;
-    return weatherLargeImages.sunny.cloudy;
+    if(isNight) return imagesSet.night.cloudy;
+    return imagesSet.sunny.cloudy;
   }
-  if (code === 3) return weatherLargeImages.default.cloudy;
-  if (code === 45 || code === 48) return weatherLargeImages.special.foggy;
+  if (code === 3) return imagesSet.special.overcast;
+  if (code === 45 || code === 48) return imagesSet.special.foggy;
   if (code === 51 || code === 53 || code === 55 || code === 56 || code === 57) {
-    if(isNight) return weatherLargeImages.night.rainy;
-    return weatherLargeImages.default.rainy;
+    if(isNight) return imagesSet.night.rainy;
+    return imagesSet.default.rainy;
   }
-  if (code === 61 || code === 53 || code === 66) return weatherLargeImages.default.rainy;
-  if (code === 65 || code === 67) return weatherLargeImages.special.shower;
+  if (code === 61 || code === 53 || code === 66) return imagesSet.default.rainy;
+  if (code === 65 || code === 67) return imagesSet.special.shower;
   if (code === 71 || code === 73) {
-    if(isNight) return weatherLargeImages.night.snowy;
-    return weatherLargeImages.default.snowy;
+    if(isNight) return imagesSet.night.snowy;
+    return imagesSet.default.snowy;
   }
-  if (code === 75 || code === 77) return weatherLargeImages.default.snowy;
-  if (code === 80 || code === 81 || code === 82) return weatherLargeImages.special.shower;
-  if (code === 85 || code === 86) return weatherLargeImages.default.snowy;
-  if (code === 95) return weatherLargeImages.default.storm;
-  if (code === 96 || code === 99) return weatherLargeImages.special.stormShower;
+  if (code === 75) return imagesSet.default.snowy;
+  if (code === 77) return imagesSet.special.snowyRain;
+  if (code === 80 || code === 81 || code === 82) return imagesSet.special.shower;
+  if (code === 85 || code === 86) return imagesSet.default.snowy;
+  if (code === 95) return imagesSet.default.storm;
+  if (code === 96 || code === 99) return imagesSet.special.stormShower;
   return null;
 }
 
