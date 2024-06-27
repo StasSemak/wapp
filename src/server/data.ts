@@ -1,7 +1,7 @@
 "use server";
 
 import { WeatherDataItem } from "~/lib/types";
-import { weatherCodeToStatus } from "~/lib/weather-utils";
+import { weatherCodeToImage, weatherCodeToStatus } from "~/lib/weather-utils";
 
 export async function getLocationData(ip: string | null) {
   const res = await fetch(`http://www.geoplugin.net/json.gp?ip=${ip}`);
@@ -24,6 +24,7 @@ export async function getWeatherData(latitude: string, longitude: string, timezo
     time: weatherData.time[idx],
     temperature: t,
     status: weatherCodeToStatus(weatherData.weathercode[idx]),
+    image: weatherCodeToImage(weatherData.weathercode[idx], false),
   })) as WeatherDataItem[];
 
   const resData: { [key in number]: WeatherDataItem[] } = {};
@@ -41,5 +42,6 @@ export async function getCurrentWeather(latidute: string, longitude: string, tim
     time: data.current_weather.time,
     temperature: data.current_weather.temperature,
     status: weatherCodeToStatus(data.current_weather.weathercode),
+    image: weatherCodeToImage(data.current_weather.weathercode, false),
   } as WeatherDataItem;
 }

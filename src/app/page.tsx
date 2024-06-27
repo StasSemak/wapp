@@ -1,5 +1,6 @@
 import { MapPinIcon } from "lucide-react";
 import { headers } from "next/headers";
+import Image from "next/image";
 import { WeatherDataItem } from "~/lib/types";
 import { todayWeatherFromTime } from "~/lib/weather-utils";
 import { getCurrentWeather, getLocationData, getWeatherData } from "~/server/data";
@@ -60,11 +61,14 @@ async function WeatherSection(props: {latidute: string, longitude: string, timez
 }
 
 async function CurrentWeather({latidute, longitude, timezone}: {latidute: string, longitude: string, timezone: string, time: string}) {
-  const { temperature, status } = await getCurrentWeather(latidute, longitude, timezone);
+  const { temperature, status, image } = await getCurrentWeather(latidute, longitude, timezone);
 
   return(
     <div className="flex flex-col gap-3 items-center">
-      <div className="size-36 rounded-lg bg-zinc-400"/>
+      {image ? 
+        <Image src={image} alt={status} className="size-36 select-none mb-1" loading="eager"/> :
+        <div className="size-36 rounded-lg bg-zinc-400"/>
+      }
       <p className="text-4xl font-semibold leading-9">{`${temperature}°C`}</p>
       <p className="text-xl leading-5">{status}</p>
     </div>
