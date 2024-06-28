@@ -77,3 +77,21 @@ export function todayWeatherFromTime(todayData: WeatherDataItem[], tomorrowData:
 
   return newData;
 }
+
+export function isNight(time: string, sunrise: string, sunset: string) {
+  const currentTime = time.split("T")[1];
+  if(!currentTime) return false;
+
+  const [currentHour] = currentTime.split(":");
+  if(!currentHour) return false;
+
+  const [sunriseHour] = sunrise.split(":");
+  if(!sunriseHour) return false;
+
+  const [sunsetHour] = sunset.split(":");
+  if(!sunsetHour) return false;
+
+  if(parseInt(currentHour, 10) <= parseInt(sunriseHour)) return true;
+  if(parseInt(currentHour, 10) > parseInt(sunsetHour) + 12) return true;
+  return false;
+}

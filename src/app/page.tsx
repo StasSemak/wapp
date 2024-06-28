@@ -8,7 +8,7 @@ import { getLocationData, getWeatherData } from "~/server/data";
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#030835] px-8">
-      <div className="h-[440px] w-full max-w-[600px] rounded-3xl bg-[#083080]/50 p-6 text-zinc-100">
+      <div className="h-[440px] w-full max-w-[640px] rounded-3xl bg-[#083080]/50 p-6 text-zinc-100">
         <Widget />
       </div>
     </main>
@@ -91,7 +91,7 @@ function TodayWeatherItem({image, status, temperature, time}: WeatherDataItem) {
     <div className="flex flex-col gap-1 rounded-md bg-blue-300/50 items-center min-w-16 py-1">
       <span>{time.split("T")[1]}</span>
       {image ? 
-        <Image src={image} alt={status} className="size-8 select-none"/> :
+        <Image src={image} alt={status} className="size-8 select-none" loading="eager"/> :
         <span className="size-8 rounded-sm bg-zinc-400"/>
       }
       <span>{`${temperature}°`}</span>

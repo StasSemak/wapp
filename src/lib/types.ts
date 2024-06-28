@@ -4,5 +4,6 @@ export type WeatherDataItem = {
   time: string,
   temperature: number,
   status: string,
-  image?: StaticImageData,
+  code: number,
+  image: StaticImageData | null,
 }
