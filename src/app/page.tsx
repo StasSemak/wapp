@@ -7,10 +7,9 @@ import { getLocationData, getWeatherData } from "~/server/data";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[#030835] px-8">
-      <div className="h-[440px] w-full max-w-[640px] rounded-3xl bg-[#083080]/50 p-6 text-zinc-100">
-        <Widget />
-      </div>
+    <main className="flex min-h-screen flex-col justify-between items-center bg-[#030835] px-8">
+      <Widget />
+      <Footer />
     </main>
   );
 }
@@ -29,7 +28,7 @@ async function Widget() {
   });
 
   return (
-    <div className="flex w-full flex-col gap-6">
+    <div className="h-[480px] w-full max-w-[640px] rounded-3xl bg-[#083080]/50 p-6 text-zinc-100 flex flex-col gap-10 my-auto">
       <div className="flex justify-between items-center">
         <div className="flex gap-1 items-center">
           <MapPinIcon className="stroke-zinc-100 size-4"/>
@@ -53,7 +52,7 @@ async function WeatherSection(props: {latidute: string, longitude: string, timez
   const todayWeather = todayWeatherFromTime(dailyData[0] ?? [], dailyData[1] ?? [], time);
 
   return(
-    <div className="flex flex-col gap-6 w-full items-center">
+    <div className="flex flex-col gap-8 w-full flex-grow items-center">
       <CurrentWeather currentData={currentData}/>
       <TodayWeather data={todayWeather}/>
     </div>
@@ -96,5 +95,14 @@ function TodayWeatherItem({image, status, temperature, time}: WeatherDataItem) {
       }
       <span>{`${temperature}°`}</span>
     </div>
+  )
+}
+
+function Footer() {
+  return(
+    <footer className="flex justify-between w-full max-w-[640px] pb-5 px-6 text-blue-300/50">
+      <a className="hover:text-blue-300 transition-all" href="https://github.com/StasSemak/wapp">GH</a>
+      <button className="hover:text-blue-300 transition-all">Credits</button>
+    </footer>
   )
 }
