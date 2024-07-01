@@ -1,6 +1,7 @@
 import { MapPinIcon } from "lucide-react";
 import { headers } from "next/headers";
 import Image from "next/image";
+import { CreditsButton } from "~/components/credits-btn";
 import { WeatherDataItem } from "~/lib/types";
 import { todayWeatherFromTime } from "~/lib/weather-utils";
 import { getLocationData, getWeatherData } from "~/server/data";
@@ -102,7 +103,7 @@ function Footer() {
   return(
     <footer className="flex justify-between w-full max-w-[640px] pb-5 px-6 text-blue-300/50">
       <a className="hover:text-blue-300 transition-all" href="https://github.com/StasSemak/wapp">GH</a>
-      <button className="hover:text-blue-300 transition-all">Credits</button>
+      <CreditsButton />
     </footer>
   )
 }

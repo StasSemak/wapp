@@ -9,3 +9,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.credit-link {
+  @apply border-b border-zinc-100
+}
