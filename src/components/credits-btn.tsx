@@ -72,7 +72,7 @@ function Popup({closeFunc, credits}: {closeFunc: () => void, credits: React.Reac
 
   return(
     <div className="min-w-screen min-h-screen bg-zinc-950/40 flex flex-col justify-center items-center px-8">
-      <div className="h-[220px] w-full flex items-start gap-3 max-w-[500px] bg-[#083080] rounded-2xl text-zinc-100 p-6" ref={popupRef}>
+      <div className="w-full flex items-start gap-3 max-w-[500px] bg-[#083080] rounded-2xl text-zinc-100 p-6" ref={popupRef}>
         {credits}
         <div>
           <button 

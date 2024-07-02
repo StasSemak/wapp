@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="relative">
+      <body className="relative vsc-initialized">
         {children}
       </body>
     </html>
