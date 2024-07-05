@@ -29,8 +29,8 @@ async function Widget() {
   });
 
   return (
-    <div className="h-[480px] w-full max-w-[640px] rounded-3xl bg-[#083080]/50 p-6 text-zinc-100 flex flex-col gap-10 my-auto">
-      <div className="flex justify-between items-center">
+    <div className="h-[466px] md:h-[480px] w-full max-w-[640px] rounded-3xl bg-[#083080]/50 px-3 py-4 md:p-6 text-zinc-100 flex flex-col gap-6 md:gap-10 my-auto">
+      <div className="flex flex-col justify-start md:flex-row md:justify-between items-center">
         <div className="flex gap-1 items-center">
           <MapPinIcon className="stroke-zinc-100 size-4"/>
           <p className="text-lg">{locationData.geoplugin_city + ", " + locationData.geoplugin_countryName}</p>
@@ -79,7 +79,7 @@ function TodayWeather({data}: {data: WeatherDataItem[] | undefined}) {
   if(!data) return "No data for today!";
 
   return(
-    <div className="flex w-full gap-3 overflow-y-scroll hide-scrollbar">
+    <div className="flex w-full gap-1.5 md:gap-3 overflow-y-scroll hide-scrollbar">
       {data.map((item, idx) => (
         <TodayWeatherItem key={`${item.time}-${idx}`} {...item}/>
       ))}
