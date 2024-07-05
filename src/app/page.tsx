@@ -91,7 +91,7 @@ function TodayWeatherItem({image, status, temperature, time}: WeatherDataItem) {
     <div className="flex flex-col gap-1 rounded-md bg-blue-300/50 items-center min-w-16 py-1">
       <span>{time.split("T")[1]}</span>
       {image ? 
-        <Image src={image} alt={status} className="size-8 select-none" priority/> :
+        <Image src={image} alt={status} className="size-8 select-none" priority quality={100}/> :
         <span className="size-8 rounded-sm bg-zinc-400"/>
       }
       <span>{`${temperature}°`}</span>
