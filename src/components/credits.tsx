@@ -18,21 +18,18 @@ export function Credits() {
           geoPlugin
         </a>
       </p>
-      ,
       <p>
         This product includes GeoLite data created by MaxMind, available from{" "}
         <a className="credit-link" href="http://www.maxmind.com">
           http://www.maxmind.com
         </a>
       </p>
-      ,
       <p>
         Weather data by{" "}
         <a className="credit-link" href="https://open-meteo.com/">
           Open-Meteo.com
         </a>
       </p>
-      ,
       <p>
         Powered by{" "}
         <a
@@ -43,7 +40,6 @@ export function Credits() {
           WeatherAPI.com
         </a>
       </p>
-      ,
       <p>
         Cloud icons created by{" "}
         <a
