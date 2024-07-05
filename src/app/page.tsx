@@ -8,7 +8,7 @@ import { getLocationData, getWeatherData } from "~/server/data";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col justify-between items-center bg-[#030835] px-8">
+    <main className="flex min-h-screen flex-col justify-between items-center bg-[#030835] px-4 md:px-8">
       <Widget />
       <Footer />
     </main>
