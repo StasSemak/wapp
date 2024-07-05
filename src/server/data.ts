@@ -1,7 +1,7 @@
 "use server";
 
 import { env } from "~/env";
-import { WeatherDataItem } from "~/lib/types";
+import type { WeatherDataItem } from "~/lib/types";
 import { isNight, weatherCodeToImage, weatherCodeToStatus } from "~/lib/weather-utils";
 
 export async function getLocationData(ip: string | null) {

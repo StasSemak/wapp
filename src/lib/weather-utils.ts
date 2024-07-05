@@ -1,4 +1,4 @@
-import { WeatherDataItem } from "~/lib/types";
+import type { WeatherDataItem } from "~/lib/types";
 import { weatherLargeImages, weatherSmallImages } from "./images";
 
 export function weatherCodeToStatus(code: number) {
