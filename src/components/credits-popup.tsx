@@ -1,22 +1,30 @@
 "use client";
 
 import { XIcon } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Credits } from "./credits";
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTrigger } from "./drawer";
+import { useIsMobile } from "~/hooks/is-mobile";
 
-export function CreditsButton() {
+export function CreditsPopup() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const portalRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile(768);
+
+  if(isMobile) {
+    return(
+      <DrawerPopup
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        credits={<Credits/>}
+      />
+    )
+  }
 
   return (
     <>
-      <button 
-        className="transition-all hover:text-blue-300"
-        onClick={() => setIsOpen(true)}
-      >
-        Credits
-      </button>
+      <TriggerButton onClick={() => setIsOpen(true)}/>
       {isOpen && 
         createPortal(
           <div
@@ -35,6 +43,16 @@ export function CreditsButton() {
         )
       }    
     </>
+  );
+}
+function TriggerButton({onClick}: {onClick?: () => void}) {
+  return (
+    <button
+      className="text-blue-300/50 hover:text-blue-300 transition-all"
+      onClick={onClick}
+    >
+      Credits
+    </button>
   );
 }
 
@@ -84,5 +102,29 @@ function Popup({closeFunc, credits}: {closeFunc: () => void, credits: React.Reac
         </div>
       </div>
     </div>
+  )
+}
+
+function DrawerPopup({credits, isOpen, setIsOpen}: {credits: React.ReactNode, isOpen: boolean, setIsOpen: (value: SetStateAction<boolean>) => void}) {
+  return(
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
+      <DrawerTrigger asChild>
+        <TriggerButton/>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerDescription>
+            {credits}
+          </DrawerDescription>
+        </DrawerHeader>
+        <DrawerFooter>
+          <DrawerClose>
+            <button className="text-blue-300/50 hover:text-blue-300 transition-all">
+              Close
+            </button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   )
 }

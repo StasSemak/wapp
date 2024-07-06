@@ -1,7 +1,7 @@
 import { MapPinIcon } from "lucide-react";
 import { headers } from "next/headers";
 import Image from "next/image";
-import { CreditsButton } from "~/components/credits-btn";
+import { CreditsPopup } from "~/components/credits-popup";
 import type { WeatherDataItem } from "~/lib/types";
 import { todayWeatherFromTime } from "~/lib/weather-utils";
 import { getLocationData, getWeatherData } from "~/server/data";
@@ -101,9 +101,9 @@ function TodayWeatherItem({image, status, temperature, time}: WeatherDataItem) {
 
 function Footer() {
   return(
-    <footer className="flex justify-between w-full max-w-[640px] pb-5 px-6 text-blue-300/50">
-      <a className="hover:text-blue-300 transition-all" href="https://github.com/StasSemak/wapp">GH</a>
-      <CreditsButton />
+    <footer className="flex justify-between w-full max-w-[640px] pb-5 px-6">
+      <a className="text-blue-300/50 hover:text-blue-300 transition-all" href="https://github.com/StasSemak/wapp">GH</a>
+      <CreditsPopup />
     </footer>
   )
 }
