@@ -118,10 +118,10 @@ function DrawerPopup({credits, isOpen, setIsOpen}: {credits: React.ReactNode, is
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>
-          <DrawerClose>
-            <button className="text-blue-300/50 hover:text-blue-300 transition-all">
+          <DrawerClose className="group">
+            <span className="text-blue-300/50 group-hover:text-blue-300 transition-all">
               Close
-            </button>
+            </span>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
