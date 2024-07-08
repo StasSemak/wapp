@@ -61,6 +61,7 @@ const TriggerButton = forwardRef<HTMLButtonElement, Props>(({onClick, ...props},
     </button>
   );
 })
+TriggerButton.displayName = "TriggerButton";
 
 function Popup({closeFunc, credits}: {closeFunc: () => void, credits: React.ReactNode}) {
   const popupRef = useRef<HTMLDivElement>(null);
