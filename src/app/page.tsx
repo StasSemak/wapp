@@ -29,13 +29,13 @@ async function Widget() {
   });
 
   return (
-    <div className="h-[466px] md:h-[480px] w-full max-w-[640px] rounded-3xl bg-[#083080]/50 px-3 py-4 md:p-6 text-zinc-100 flex flex-col gap-6 md:gap-10 my-auto">
+    <div className="h-[466px] md:h-[480px] w-full max-w-[640px] rounded-3xl bg-[#083080]/50 px-3 py-4 md:p-6 text-zinc-100 flex flex-col gap-5 md:gap-10 my-auto">
       <div className="flex flex-col justify-start md:flex-row md:justify-between items-center">
         <div className="flex gap-1 items-center">
           <MapPinIcon className="stroke-zinc-100 size-4"/>
-          <p className="text-lg">{locationData.geoplugin_city + ", " + locationData.geoplugin_countryName}</p>
+          <p className="text-base md:text-lg">{locationData.geoplugin_city + ", " + locationData.geoplugin_countryName}</p>
         </div>
-        <p className="text-lg">{date}</p>
+        <p className="text-base md:text-lg">{date}</p>
       </div>
       <WeatherSection 
         latidute={locationData.geoplugin_latitude}

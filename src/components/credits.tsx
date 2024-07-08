@@ -1,6 +1,6 @@
 export function Credits() {
   return (
-    <div className="flex flex-grow flex-col gap-3 text-zinc-100">
+    <div className="flex flex-grow flex-col gap-3 text-zinc-100 text-sm md:text-base">
       <p>
         <a
           className="credit-link"

@@ -1,10 +1,10 @@
 "use client";
 
 import { XIcon } from "lucide-react";
-import { SetStateAction, useCallback, useEffect, useRef, useState } from "react";
+import { forwardRef, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Credits } from "./credits";
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTrigger } from "./drawer";
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./drawer";
 import { useIsMobile } from "~/hooks/is-mobile";
 
 export function CreditsPopup() {
@@ -45,16 +45,22 @@ export function CreditsPopup() {
     </>
   );
 }
-function TriggerButton({onClick}: {onClick?: () => void}) {
+
+type Props = {
+  onClick?: () => void
+}
+const TriggerButton = forwardRef<HTMLButtonElement, Props>(({onClick, ...props}, ref) => {
   return (
     <button
       className="text-blue-300/50 hover:text-blue-300 transition-all"
       onClick={onClick}
+      ref={ref}
+      {...props}
     >
       Credits
     </button>
   );
-}
+})
 
 function Popup({closeFunc, credits}: {closeFunc: () => void, credits: React.ReactNode}) {
   const popupRef = useRef<HTMLDivElement>(null);
@@ -113,9 +119,9 @@ function DrawerPopup({credits, isOpen, setIsOpen}: {credits: React.ReactNode, is
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerDescription>
-            {credits}
-          </DrawerDescription>
+          <DrawerTitle className="hidden">Credits</DrawerTitle>
+          <DrawerDescription className="hidden">Credits for app</DrawerDescription>
+          {credits}
         </DrawerHeader>
         <DrawerFooter>
           <DrawerClose className="group">
